@@ -1,265 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DAPO QR Code Generator</title>
+<title>DAPO QR Generator System</title>
 
-<link rel="stylesheet" href="global.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="login.css">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 </head>
 
 <body>
 
+<!-- Animated Background -->
+<div class="background">
 
-
-<div class="container">
-
-<h2>QR Code Generator</h2>
-
-<label>Name</label>
-<input type="text" id="name">
-
-<label>Address</label>
-<textarea id="address" rows="3"></textarea>
-
-<label>Cell Number</label>
-<input
-type="text"
-id="cell"
-maxlength="11"
-inputmode="numeric"
-placeholder="09XXXXXXXXX"
-oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-
-<label>Email</label>
-<input type="email" id="email">
-
-<button onclick="generateQR()">
-Generate QR Code
-</button>
-
-<a href="scanner.html" class="scan-btn">
-<i class="fa-solid fa-camera"></i>
-Scan QR Code
-</a>
-
-<button onclick="printQR()">
-🖨 Print QR Code
-</button>
-
-<button onclick="window.location.href='records.html'">
-View Records
-</button>
-
-<button onclick="window.location.href='admin.html'">
-⚙ Admin Settings
-</button>
-
-<button class="logout-btn" onclick="logout()">
-Logout
-</button>
-
-<div class="output" id="output"></div>
-
-<div id="qrcode"></div>
+    <span class="circle c1"></span>
+    <span class="circle c2"></span>
+    <span class="circle c3"></span>
+    <span class="circle c4"></span>
+    <span class="circle c5"></span>
+    <span class="circle c6"></span>
 
 </div>
 
-<script>
+<!-- Navigation -->
 
-let currentName = "";
-let currentAddress = "";
-let currentCell = "";
-let currentEmail = "";
+<header>
 
-function generateQR(){
+<div class="logo">
 
-const name=document.getElementById("name").value.trim();
-const address=document.getElementById("address").value.trim();
-const cell=document.getElementById("cell").value.trim();
-const email=document.getElementById("email").value.trim();
+<i class="fa-solid fa-seedling"></i>
 
-currentName = name;
-currentAddress = address;
-currentCell = cell;
-currentEmail = email;
+<span>DAPO QR SYSTEM</span>
 
-if(!name || !address || !cell || !email){
-    alert("Please complete all fields.");
-    return;
-}
+</div>
 
-const phonePattern=/^09\d{9}$/;
+</header>
 
-if(!phonePattern.test(cell)){
-    alert("Cell Number must be a valid Philippine mobile number.");
-    document.getElementById("cell").focus();
-    return;
-}
 
-const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+<!-- Hero Section -->
 
-if(!emailPattern.test(email)){
-    alert("Please enter a valid email address.");
-    document.getElementById("email").focus();
-    return;
-}
+<section class="hero">
 
-const qrData=
-`Name: ${name}
-Address: ${address}
-Cell: ${cell}
-Email: ${email}`;
+<div class="glass">
 
-document.getElementById("output").textContent=qrData;
+<div class="left">
 
-document.getElementById("qrcode").innerHTML="";
+<h1>
+Welcome to the
+<span>DAPO QR Generator System</span>
+</h1>
 
-new QRCode(document.getElementById("qrcode"),{
-    text:qrData,
-    width:250,
-    height:250
-});
+<p>
 
-let records=JSON.parse(localStorage.getItem("qrRecords")) || [];
+A modern QR Code Generation and Attendance Monitoring
+System designed to provide a faster, safer,
+and contactless experience for employees,
+visitors, and administrators.
 
-const now=new Date();
+</p>
 
-const exists = records.some(record =>
-    record.name === name &&
-    record.address === address &&
-    record.cell === cell &&
-    record.email === email
-);
+<div class="features">
 
-if(!exists){
+<div>
 
-    records.push({
+<i class="fa-solid fa-qrcode"></i>
 
-        name,
-        address,
-        cell,
-        email,
+<p>Generate QR Codes</p>
 
-        date:now.toLocaleDateString(),
+</div>
 
-        time:now.toLocaleTimeString()
+<div>
 
-    });
+<i class="fa-solid fa-chart-line"></i>
 
-}
+<p>Attendance Monitoring</p>
 
-localStorage.setItem("qrRecords",JSON.stringify(records));
+</div>
 
-alert("QR Code generated successfully!");
+<div>
 
-document.getElementById("name").value="";
-document.getElementById("address").value="";
-document.getElementById("cell").value="";
-document.getElementById("email").value="";
+<i class="fa-solid fa-shield-halved"></i>
 
-document.getElementById("name").focus();
+<p>Secure Records</p>
 
-}
+</div>
 
-function printQR(){
+</div>
 
-const qr = document.getElementById("qrcode");
+<div class="scan-message">
 
-if(qr.innerHTML === ""){
-    alert("Please generate a QR Code first.");
-    return;
-}
+<i class="fa-solid fa-mobile-screen-button"></i>
 
-let printWindow = window.open("", "", "width=600,height=700");
+<span>
+Scan the QR Code to Continue
+</span>
 
-printWindow.document.write(`
-<html>
+</div>
 
-<head>
+</div>
 
-<title>Print QR Code</title>
 
-<style>
 
-body{
-    font-family:Arial, sans-serif;
-    text-align:center;
-    margin:40px;
-}
+<div class="right">
 
-h2{
-    color:#2e7d32;
-}
+<div class="qr-card">
 
-p{
-    font-size:16px;
-    margin:6px 0;
-}
+<h2>Scan Here</h2>
 
-img,canvas{
-    width:250px;
-    height:250px;
-    margin-top:20px;
-}
+<img src="dapoqr.png" alt="QR Code">
 
-</style>
+<p>
 
-</head>
+Use your phone's camera
+to access the QR Generator.
 
-<body>
+</p>
 
-<h2>DAPO QR Generator System</h2>
+</div>
 
-<p><strong>Name:</strong> ${currentName}</p>
+</div>
 
-<p><strong>Address:</strong> ${currentAddress}</p>
+</div>
 
-<p><strong>Cell Number:</strong> ${currentCell}</p>
+</section>
 
-<p><strong>Email:</strong> ${currentEmail}</p>
+
+<!-- Floating Icons -->
+
+<div class="floating">
+
+<i class="fa-solid fa-qrcode qr1"></i>
+
+<i class="fa-solid fa-mobile-screen qr2"></i>
+
+<i class="fa-solid fa-leaf qr3"></i>
+
+<i class="fa-solid fa-seedling qr4"></i>
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+<div>
+
+<h3>DAPO QR Generator System</h3>
+
+<p>
+
+    DAPO (Digital Agri Philippines OPC)
+
+</p>
+
+</div>
+
+<div>
+
+<p>
+
+© 2026 DAPO QR Generator System
 
 <br>
 
-${qr.innerHTML}
+All Rights Reserved.
 
-</body>
+</p>
 
-</html>
-`);
+</div>
 
-printWindow.document.close();
-printWindow.focus();
-printWindow.print();
-printWindow.close();
-
-}
-
-function logout(){
-
-if(confirm("Are you sure you want to logout?")){
-
-sessionStorage.removeItem("loggedIn");
-
-window.location.href="login.html";
-
-}
-
-}
-
-</script>
-<footer>
-
-    © 2026 DAPO QR Generator System
-    
 </footer>
+
 </body>
+
 </html>
