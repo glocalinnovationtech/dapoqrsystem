@@ -18,11 +18,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <body>
 
-<script>
-if(sessionStorage.getItem("loggedIn") !== "true"){
-    window.location.href="login.html";
-}
-</script>
+
 
 <div class="container">
 
@@ -79,12 +75,22 @@ Logout
 
 <script>
 
+let currentName = "";
+let currentAddress = "";
+let currentCell = "";
+let currentEmail = "";
+
 function generateQR(){
 
 const name=document.getElementById("name").value.trim();
 const address=document.getElementById("address").value.trim();
 const cell=document.getElementById("cell").value.trim();
 const email=document.getElementById("email").value.trim();
+
+currentName = name;
+currentAddress = address;
+currentCell = cell;
+currentEmail = email;
 
 if(!name || !address || !cell || !email){
     alert("Please complete all fields.");
@@ -166,14 +172,14 @@ document.getElementById("name").focus();
 
 function printQR(){
 
-const qr=document.getElementById("qrcode");
+const qr = document.getElementById("qrcode");
 
-if(qr.innerHTML===""){
+if(qr.innerHTML === ""){
     alert("Please generate a QR Code first.");
     return;
 }
 
-let printWindow=window.open("","","width=600,height=700");
+let printWindow = window.open("", "", "width=600,height=700");
 
 printWindow.document.write(`
 <html>
@@ -185,21 +191,24 @@ printWindow.document.write(`
 <style>
 
 body{
+    font-family:Arial, sans-serif;
+    text-align:center;
+    margin:40px;
+}
 
-font-family:Arial;
+h2{
+    color:#2e7d32;
+}
 
-text-align:center;
-
-margin-top:40px;
-
+p{
+    font-size:16px;
+    margin:6px 0;
 }
 
 img,canvas{
-
-width:250px;
-
-height:250px;
-
+    width:250px;
+    height:250px;
+    margin-top:20px;
 }
 
 </style>
@@ -208,12 +217,17 @@ height:250px;
 
 <body>
 
-<h2>DAPO QR Code</h2>
+<h2>DAPO QR Generator System</h2>
 
-<p><strong>Name:</strong> ${name}</p>
-<p><strong>Address:</strong> ${address}</p>
-<p><strong>Cell:</strong> ${cell}</p>
-<p><strong>Email:</strong> ${email}</p>
+<p><strong>Name:</strong> ${currentName}</p>
+
+<p><strong>Address:</strong> ${currentAddress}</p>
+
+<p><strong>Cell Number:</strong> ${currentCell}</p>
+
+<p><strong>Email:</strong> ${currentEmail}</p>
+
+<br>
 
 ${qr.innerHTML}
 
@@ -223,11 +237,8 @@ ${qr.innerHTML}
 `);
 
 printWindow.document.close();
-
 printWindow.focus();
-
 printWindow.print();
-
 printWindow.close();
 
 }
