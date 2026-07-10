@@ -1,0 +1,133 @@
+/* =========================
+   GENERAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#dff7dc;
+    text-align:center;
+    padding:20px;
+    color:#333;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.scanner-container{
+    max-width:700px;
+    margin:30px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h1{
+    color:#2e7d32;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#666;
+    margin-bottom:20px;
+}
+
+/* =========================
+   QR READER
+========================= */
+
+#reader{
+    width:100%;
+    max-width:500px;
+    min-height:300px;
+    margin:20px auto;
+    border:2px solid #4CAF50;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+/* =========================
+   RESULT BOX
+========================= */
+
+textarea{
+    width:100%;
+    padding:15px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:15px;
+    resize:none;
+    box-sizing:border-box;
+    margin-top:15px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+button,
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:12px 25px;
+    background:#4CAF50;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover,
+.back-btn:hover{
+    background:#2e7d32;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width:768px){
+
+    body{
+        padding:15px;
+    }
+
+    .scanner-container{
+        padding:20px;
+    }
+
+    #reader{
+        max-width:100%;
+        min-height:260px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    button,
+    .back-btn{
+        width:100%;
+    }
+
+}

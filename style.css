@@ -1,0 +1,253 @@
+/* ==========================================
+   QR GENERATOR PAGE
+   style.css
+========================================== */
+
+body{
+    background:linear-gradient(135deg,#dff7dc,#f4fff4);
+}
+
+/* Container */
+
+.container{
+    width:100%;
+    max-width:600px;
+    margin:40px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+/* Heading */
+
+h2{
+    text-align:center;
+    color:#2e7d32;
+    margin-bottom:25px;
+    font-size:30px;
+}
+
+/* Labels */
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:8px;
+    font-weight:bold;
+    color:#333;
+}
+
+/* Inputs */
+
+input,
+textarea{
+
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+    transition:.3s;
+    resize:vertical;
+
+}
+
+input:focus,
+textarea:focus{
+
+    border-color:#4CAF50;
+    outline:none;
+    box-shadow:0 0 6px rgba(76,175,80,.3);
+
+}
+
+/* All Buttons */
+
+button,
+.scan-btn{
+
+    width:100%;
+    display:block;
+    margin-top:15px;
+    padding:14px;
+    background:#2e7d32;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    text-align:center;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+button:hover,
+.scan-btn:hover{
+
+    background:#1b5e20;
+    transform:translateY(-2px);
+
+}
+
+/* Logout */
+
+.logout-btn{
+
+    background:#d32f2f;
+
+}
+
+.logout-btn:hover{
+
+    background:#b71c1c;
+
+}
+
+/* QR Information */
+
+.output{
+
+    margin-top:25px;
+    padding:15px;
+    background:#f8f8f8;
+    border-left:5px solid #4CAF50;
+    border-radius:8px;
+    white-space:pre-line;
+    line-height:1.6;
+
+}
+
+/* QR Image */
+
+#qrcode{
+
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+#qrcode img,
+#qrcode canvas{
+
+    max-width:250px;
+    width:100%;
+    height:auto;
+
+}
+
+/* Footer */
+
+footer{
+
+    width:100%;
+    text-align:center;
+    margin-top:40px;
+    padding:20px;
+    background:#2e7d32;
+    color:#fff;
+
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media(max-width:992px){
+
+.container{
+
+    max-width:90%;
+
+}
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:768px){
+
+.container{
+
+    width:95%;
+    margin:20px auto;
+    padding:20px;
+
+}
+
+h2{
+
+    font-size:24px;
+
+}
+
+button,
+.scan-btn{
+
+    font-size:15px;
+    padding:13px;
+    text-decoration: none;
+
+}
+
+input,
+textarea{
+
+    font-size:15px;
+
+}
+
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media(max-width:480px){
+
+.container{
+
+    width:96%;
+    padding:15px;
+
+}
+
+h2{
+
+    font-size:22px;
+
+}
+
+button,
+.scan-btn{
+
+    padding:12px;
+    font-size:14px;
+
+}
+
+label{
+
+    font-size:14px;
+
+}
+
+input,
+textarea{
+
+    font-size:14px;
+
+}
+
+#qrcode img,
+#qrcode canvas{
+
+    max-width:220px;
+
+}
+
+}

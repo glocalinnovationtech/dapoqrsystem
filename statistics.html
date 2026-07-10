@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DAPO Statistics Dashboard</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#dff8d8;
+padding:30px;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h1{
+text-align:center;
+color:#2E7D32;
+margin-bottom:30px;
+}
+
+.cards{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:20px;
+
+margin-bottom:35px;
+
+}
+
+.card{
+
+background:#f4fff2;
+
+padding:25px;
+
+border-radius:12px;
+
+text-align:center;
+
+box-shadow:0 3px 8px rgba(0,0,0,.1);
+
+}
+
+.card h3{
+
+margin-bottom:15px;
+
+color:#2E7D32;
+
+}
+
+.card p{
+
+font-size:40px;
+
+font-weight:bold;
+
+color:#4CAF50;
+
+}
+
+.section{
+
+margin-top:30px;
+
+}
+
+.progress-title{
+
+margin:20px 0 8px;
+
+font-weight:bold;
+
+}
+
+.progress{
+
+background:#ddd;
+
+height:25px;
+
+border-radius:30px;
+
+overflow:hidden;
+
+}
+
+.progress-bar{
+
+height:25px;
+
+background:#4CAF50;
+
+width:0%;
+
+text-align:center;
+
+color:white;
+
+line-height:25px;
+
+transition:.5s;
+
+}
+
+.buttons{
+
+margin-top:35px;
+
+text-align:center;
+
+}
+
+button{
+
+padding:12px 18px;
+
+margin:5px;
+
+border:none;
+
+border-radius:6px;
+
+cursor:pointer;
+
+font-size:15px;
+
+}
+
+.refresh{
+
+background:#4CAF50;
+
+color:white;
+
+}
+
+.print{
+
+background:#FF9800;
+
+color:white;
+
+}
+
+.back{
+
+background:#2196F3;
+
+color:white;
+
+}
+
+button:hover{
+
+opacity:.9;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📊 DAPO Statistics Dashboard</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total QR Records</h3>
+<p id="totalRecords">0</p>
+</div>
+
+<div class="card">
+<h3>Today's Records</h3>
+<p id="todayRecords">0</p>
+</div>
+
+<div class="card">
+<h3>This Month</h3>
+<p id="monthRecords">0</p>
+</div>
+
+<div class="card">
+<h3>Total Admins</h3>
+<p id="adminCount">0</p>
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>System Overview</h2>
+
+<div class="progress-title">
+
+QR Records
+
+</div>
+
+<div class="progress">
+
+<div
+class="progress-bar"
+id="recordBar">
+
+0%
+
+</div>
+
+</div>
+
+<div class="progress-title">
+
+Admin Accounts
+
+</div>
+
+<div class="progress">
+
+<div
+class="progress-bar"
+id="adminBar">
+
+0%
+
+</div>
+
+</div>
+
+</div>
+
+<div class="buttons">
+
+<button
+class="refresh"
+onclick="loadStatistics()">
+
+🔄 Refresh
+
+</button>
+
+<button
+class="print"
+onclick="window.print()">
+
+🖨 Print
+
+</button>
+
+<button
+class="back"
+onclick="window.location.href='admin.html'">
+
+⬅ Back
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function loadStatistics(){
+
+let records =
+JSON.parse(localStorage.getItem("qrRecords")) || [];
+
+let admins =
+JSON.parse(localStorage.getItem("admins")) || [];
+
+document.getElementById("totalRecords").innerHTML =
+records.length;
+
+document.getElementById("adminCount").innerHTML =
+admins.length;
+
+// Today's Records
+
+let today =
+new Date().toLocaleDateString("en-US",{
+year:"numeric",
+month:"long",
+day:"numeric"
+});
+
+let todayCount=0;
+
+records.forEach(function(record){
+
+if(record.date===today){
+
+todayCount++;
+
+}
+
+});
+
+document.getElementById("todayRecords").innerHTML =
+todayCount;
+
+// This Month
+
+let month =
+new Date().toLocaleDateString("en-US",{
+month:"long"
+});
+
+let monthCount=0;
+
+records.forEach(function(record){
+
+if(record.date.includes(month)){
+
+monthCount++;
+
+}
+
+});
+
+document.getElementById("monthRecords").innerHTML =
+monthCount;
+
+// Progress Bars
+
+let recordPercent =
+Math.min(records.length*10,100);
+
+document.getElementById("recordBar").style.width =
+recordPercent+"%";
+
+document.getElementById("recordBar").innerHTML =
+recordPercent+"%";
+
+let adminPercent =
+Math.min(admins.length*20,100);
+
+document.getElementById("adminBar").style.width =
+adminPercent+"%";
+
+document.getElementById("adminBar").innerHTML =
+adminPercent+"%";
+
+}
+
+loadStatistics();
+
+</script>
+
+</body>
+</html>

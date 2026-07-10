@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Admin | DAPO</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#dff8d8;
+}
+
+.container{
+    width:700px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h2{
+    text-align:center;
+    color:#2e7d32;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    border:1px solid #bbb;
+    border-radius:6px;
+    font-size:15px;
+}
+
+button{
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    margin-top:15px;
+}
+
+.create-btn{
+    width:100%;
+    background:#4CAF50;
+    color:white;
+}
+
+.create-btn:hover{
+    background:#388E3C;
+}
+
+.back-btn{
+    width:100%;
+    background:#2196F3;
+    color:white;
+}
+
+.back-btn:hover{
+    background:#1565C0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:30px;
+}
+
+table th{
+    background:#4CAF50;
+    color:white;
+}
+
+table th,
+table td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+
+.delete-btn{
+    background:#f44336;
+    color:white;
+    padding:8px 12px;
+}
+
+.delete-btn:hover{
+    background:#d32f2f;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.error{
+    color:red;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Create New Admin</h2>
+
+<label>Username</label>
+<input type="text" id="username">
+
+<label>Password</label>
+<input type="password" id="password">
+
+<label>Confirm Password</label>
+<input type="password" id="confirmPassword">
+
+<br><br>
+
+<input type="checkbox" onclick="togglePassword()">
+Show Password
+
+<button class="create-btn" onclick="createAdmin()">
+Create Admin
+</button>
+
+<div id="message"></div>
+
+<h2 style="margin-top:35px;">Existing Admin Accounts</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>#</th>
+<th>Username</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="adminTable">
+
+</tbody>
+
+</table>
+
+<button
+class="back-btn"
+onclick="window.location.href='admin.html'">
+
+⬅ Back to Dashboard
+
+</button>
+
+</div>
+
+<script>
+
+// Create default admin
+if(localStorage.getItem("admins")==null){
+
+let admins=[
+{
+username:"admin",
+password:"admin123"
+}
+];
+
+localStorage.setItem("admins",JSON.stringify(admins));
+
+}
+
+loadAdmins();
+
+function createAdmin(){
+
+let username=document.getElementById("username").value.trim();
+
+let password=document.getElementById("password").value;
+
+let confirm=document.getElementById("confirmPassword").value;
+
+let message=document.getElementById("message");
+
+message.innerHTML="";
+
+let admins=JSON.parse(localStorage.getItem("admins"));
+
+if(username=="" || password=="" || confirm==""){
+
+message.innerHTML="<p class='error'>Please complete all fields.</p>";
+
+return;
+
+}
+
+if(password.length<6){
+
+message.innerHTML="<p class='error'>Password must be at least 6 characters.</p>";
+
+return;
+
+}
+
+if(password!=confirm){
+
+message.innerHTML="<p class='error'>Passwords do not match.</p>";
+
+return;
+
+}
+
+let exists=admins.find(a=>a.username.toLowerCase()==username.toLowerCase());
+
+if(exists){
+
+message.innerHTML="<p class='error'>Username already exists.</p>";
+
+return;
+
+}
+
+admins.push({
+
+username:username,
+
+password:password
+
+});
+
+localStorage.setItem("admins",JSON.stringify(admins));
+
+message.innerHTML="<p class='success'>Admin created successfully!</p>";
+
+document.getElementById("username").value="";
+document.getElementById("password").value="";
+document.getElementById("confirmPassword").value="";
+
+loadAdmins();
+
+}
+
+function loadAdmins(){
+
+let admins=JSON.parse(localStorage.getItem("admins"));
+
+let table=document.getElementById("adminTable");
+
+table.innerHTML="";
+
+admins.forEach(function(admin,index){
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>${admin.username}</td>
+
+<td>
+
+${admin.username=="admin"
+?
+"<b>Main Admin</b>"
+:
+`<button class="delete-btn" onclick="deleteAdmin(${index})">Delete</button>`
+}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+function deleteAdmin(index){
+
+let admins=JSON.parse(localStorage.getItem("admins"));
+
+if(confirm("Delete this admin account?")){
+
+admins.splice(index,1);
+
+localStorage.setItem("admins",JSON.stringify(admins));
+
+loadAdmins();
+
+}
+
+}
+
+function togglePassword(){
+
+let fields=document.querySelectorAll("input[type=password]");
+
+fields.forEach(function(field){
+
+field.type=field.type=="password"?"text":"password";
+
+});
+<center>
+
+<button onclick="window.location.href='admin.html'">
+⬅ Back to Admin Dashboard
+</button>
+
+</center>
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DAPO - System Settings</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#dff8dd;
+    padding:30px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+h1{
+    text-align:center;
+    color:#2e7d32;
+    margin-bottom:25px;
+}
+
+.section{
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.section h2{
+    color:#2e7d32;
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input,
+select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.checkbox{
+    margin-top:12px;
+}
+
+.checkbox input{
+    width:auto;
+}
+
+button{
+    padding:12px 18px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin-top:20px;
+    margin-right:10px;
+    color:white;
+    font-size:15px;
+}
+
+.save{
+    background:#2e7d32;
+}
+
+.reset{
+    background:#ff9800;
+}
+
+.back{
+    background:#1976d2;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.info{
+    background:#f7f7f7;
+    padding:15px;
+    border-radius:8px;
+    line-height:1.8;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1><i class="fa fa-gear"></i> System Settings</h1>
+
+<!-- General -->
+<div class="section">
+
+<h2>General Information</h2>
+
+<label>System Name</label>
+<input type="text" value="DAPO QR Generator">
+
+<label>School / Organization</label>
+<input type="text" value="Your School Name">
+
+<label>Administrator</label>
+<input type="text" value="Administrator">
+
+<label>Version</label>
+<input type="text" value="Version 1.0" readonly>
+
+</div>
+
+<!-- Appearance -->
+<div class="section">
+
+<h2>Appearance</h2>
+
+<label>Theme</label>
+
+<select>
+<option selected>Light Green</option>
+<option>Light</option>
+<option>Dark</option>
+<option>Blue</option>
+</select>
+
+<label>Font Size</label>
+
+<select>
+<option>Small</option>
+<option selected>Medium</option>
+<option>Large</option>
+</select>
+
+</div>
+
+<!-- Security -->
+<div class="section">
+
+<h2>Security Settings</h2>
+
+<div class="checkbox">
+<input type="checkbox" checked>
+Enable Admin Login Authentication
+</div>
+
+<div class="checkbox">
+<input type="checkbox" checked>
+Require Password Confirmation
+</div>
+
+<div class="checkbox">
+<input type="checkbox">
+Enable Two-Factor Authentication
+</div>
+
+<div class="checkbox">
+<input type="checkbox" checked>
+Auto Logout after 30 Minutes
+</div>
+
+</div>
+
+<!-- Backup -->
+<div class="section">
+
+<h2>Backup & Restore</h2>
+
+<button class="save">
+<i class="fa fa-download"></i>
+Backup Database
+</button>
+
+<button class="reset">
+<i class="fa fa-upload"></i>
+Restore Backup
+</button>
+
+</div>
+
+<!-- Notifications -->
+<div class="section">
+
+<h2>Notification Settings</h2>
+
+<div class="checkbox">
+<input type="checkbox" checked>
+Email Notification
+</div>
+
+<div class="checkbox">
+<input type="checkbox">
+SMS Notification
+</div>
+
+<div class="checkbox">
+<input type="checkbox" checked>
+Notify when records are deleted
+</div>
+
+</div>
+
+<!-- Maintenance -->
+<div class="section">
+
+<h2>Maintenance</h2>
+
+<button class="reset">
+<i class="fa fa-trash"></i>
+Clear Cache
+</button>
+
+<button class="reset">
+<i class="fa fa-database"></i>
+Reset System
+</button>
+
+</div>
+
+<!-- About -->
+<div class="section">
+
+<h2>About System</h2>
+
+<div class="info">
+
+<p><strong>System:</strong> DAPO QR Generator</p>
+
+<p><strong>Version:</strong> 1.0</p>
+
+<p><strong>Developer:</strong> Your Name</p>
+
+<p><strong>Date Released:</strong> July 2026</p>
+
+<p><strong>Description:</strong> This system generates QR Codes, stores user records, provides administrator management, statistics, and reporting tools.</p>
+
+</div>
+
+</div>
+
+<center>
+
+<button class="save">
+Save Settings
+</button>
+
+<button class="back" onclick="window.location.href='admin.html'">
+Back to Dashboard
+</button>
+
+</center>
+
+</div>
+
+</body>
+</html>

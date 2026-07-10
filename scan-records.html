@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scanned QR Records</title>
+
+<link rel="stylesheet" href="global.css">
+<link rel="stylesheet" href="records.css">
+
+<style>
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7f8;
+}
+
+.main{
+    max-width:1300px;
+    margin:auto;
+    padding:30px;
+}
+
+h1{
+    text-align:center;
+    color:#2e7d32;
+    margin-bottom:25px;
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin-bottom:25px;
+}
+
+.actions button,
+.actions a{
+
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    background:#2e7d32;
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
+
+}
+
+.actions button:hover,
+.actions a:hover{
+
+    background:#1b5e20;
+
+}
+
+.clear-btn{
+    background:#d32f2f !important;
+}
+
+.clear-btn:hover{
+    background:#b71c1c !important;
+}
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+
+}
+
+th{
+
+    background:#2e7d32;
+    color:white;
+    padding:14px;
+
+}
+
+td{
+
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+
+}
+
+tr:nth-child(even){
+
+    background:#f8f8f8;
+
+}
+
+.delete-btn{
+
+    background:#d32f2f;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+
+}
+
+.delete-btn:hover{
+
+    background:#b71c1c;
+
+}
+
+@media(max-width:768px){
+
+table{
+    display:block;
+    overflow-x:auto;
+}
+
+.actions{
+    flex-direction:column;
+}
+
+.actions button,
+.actions a{
+    width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h1>📷 Scanned QR Records</h1>
+
+<div class="actions">
+
+<a href="admin.html">
+⬅ Back to Admin Dashboard
+</a>
+
+<button onclick="window.print()">
+🖨 Print
+</button>
+
+<button onclick="exportCSV()">
+📄 Export Excel
+</button>
+
+<button onclick="downloadPDF()">
+📕 Export PDF
+</button>
+
+<button class="clear-btn" onclick="clearRecords()">
+🗑 Clear All
+</button>
+
+</div>
+
+<div class="table-container">
+
+    <table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>Name</th>
+<th>Address</th>
+<th>Cell Number</th>
+<th>Email</th>
+<th>Date</th>
+<th>Time</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+let scans=JSON.parse(localStorage.getItem("scanRecords")) || [];
+
+const table=document.getElementById("tableBody");
+
+function loadTable(){
+
+table.innerHTML="";
+
+if(scans.length===0){
+
+table.innerHTML=`
+<tr>
+<td colspan="8">
+No scanned QR records found.
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+scans.forEach((scan,index)=>{
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>${scan.name}</td>
+
+<td>${scan.address}</td>
+
+<td>${scan.cell}</td>
+
+<td>${scan.email}</td>
+
+<td>${scan.date}</td>
+
+<td>${scan.time}</td>
+
+<td>
+
+<button class="delete-btn"
+
+onclick="deleteRecord(${index})">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+loadTable();
+
+function deleteRecord(index){
+
+if(confirm("Delete this record?")){
+
+scans.splice(index,1);
+
+localStorage.setItem(
+
+"scanRecords",
+
+JSON.stringify(scans)
+
+);
+
+loadTable();
+
+}
+
+}
+
+function clearRecords(){
+
+if(confirm("Delete ALL scanned records?")){
+
+localStorage.removeItem("scanRecords");
+
+scans=[];
+
+loadTable();
+
+}
+
+}
+
+function exportCSV(){
+
+let csv="No,Name,Address,Cell Number,Email,Date,Time\n";
+
+scans.forEach((scan,index)=>{
+
+csv+=`${index+1},"${scan.name}","${scan.address}","${scan.cell}","${scan.email}","${scan.date}","${scan.time}"\n`;
+
+});
+
+const blob=new Blob([csv],{type:"text/csv"});
+
+const link=document.createElement("a");
+
+link.href=URL.createObjectURL(blob);
+
+link.download="Scanned_QR_Records.csv";
+
+link.click();
+
+URL.revokeObjectURL(link.href);
+
+}
+
+function downloadPDF(){
+
+window.print();
+
+}
+
+</script>
+
+</body>
+
+</html>

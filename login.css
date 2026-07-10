@@ -1,0 +1,791 @@
+/* ==========================================
+   RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    background:linear-gradient(135deg,#0b5d1e,#1b8f4c,#57c96b);
+
+    color:#fff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    position:relative;
+
+}
+
+/* ==========================================
+   ANIMATED BACKGROUND
+========================================== */
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    z-index:-2;
+
+}
+
+.background::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle at 20% 30%,rgba(255,255,255,.12),transparent 280px),
+
+    radial-gradient(circle at 80% 20%,rgba(255,255,255,.08),transparent 250px),
+
+    radial-gradient(circle at 50% 90%,rgba(255,255,255,.10),transparent 320px);
+
+}
+
+.circle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    animation:float 15s infinite linear;
+
+}
+
+.c1{
+
+width:220px;
+height:220px;
+
+left:-70px;
+top:120px;
+
+}
+
+.c2{
+
+width:300px;
+height:300px;
+
+right:-120px;
+top:60px;
+
+animation-delay:3s;
+
+}
+
+.c3{
+
+width:160px;
+height:160px;
+
+left:30%;
+bottom:-50px;
+
+animation-delay:6s;
+
+}
+
+.c4{
+
+width:120px;
+height:120px;
+
+right:35%;
+bottom:150px;
+
+animation-delay:4s;
+
+}
+
+.c5{
+
+width:180px;
+height:180px;
+
+left:70%;
+top:55%;
+
+animation-delay:8s;
+
+}
+
+.c6{
+
+width:140px;
+height:140px;
+
+left:8%;
+bottom:80px;
+
+animation-delay:10s;
+
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+header{
+
+    width:100%;
+
+    padding:25px 60px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    font-size:26px;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+
+}
+
+.logo i{
+
+    font-size:34px;
+
+    color:#d8ffd8;
+
+}
+
+/* ==========================================
+   HERO
+========================================== */
+
+.hero{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+}
+
+.glass{
+
+    width:100%;
+
+    max-width:1250px;
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:40px;
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.25);
+
+    border-radius:30px;
+
+    padding:50px;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+
+}
+
+/* ==========================================
+   LEFT SIDE
+========================================== */
+
+.left h1{
+
+    font-size:58px;
+
+    line-height:1.2;
+
+    margin-bottom:25px;
+
+}
+
+.left span{
+
+    color:#e8ffd8;
+
+}
+
+.left p{
+
+    font-size:20px;
+
+    line-height:1.8;
+
+    color:#eef7ee;
+
+}
+
+/* ==========================================
+   FEATURES
+========================================== */
+
+.features{
+
+    display:flex;
+
+    gap:30px;
+
+    margin-top:45px;
+
+}
+
+.features div{
+
+    flex:1;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:18px;
+
+    text-align:center;
+
+    padding:25px;
+
+    transition:.35s;
+
+}
+
+.features div:hover{
+
+    transform:translateY(-10px);
+
+    background:rgba(255,255,255,.25);
+
+}
+
+.features i{
+
+    font-size:42px;
+
+    margin-bottom:15px;
+
+}
+
+.features p{
+
+    font-size:16px;
+
+    font-weight:bold;
+
+}
+
+/* ==========================================
+   SCAN MESSAGE
+========================================== */
+
+.scan-message{
+
+    margin-top:50px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:18px 28px;
+
+    background:#ffffff;
+
+    color:#2e7d32;
+
+    border-radius:50px;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+    animation:pulse 2s infinite;
+
+}
+
+.scan-message i{
+
+    font-size:26px;
+
+}
+
+/* ==========================================
+   QR CARD
+========================================== */
+
+.right{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.qr-card{
+
+    width:320px;
+
+    background:white;
+
+    color:#333;
+
+    border-radius:25px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:0 20px 35px rgba(0,0,0,.3);
+
+}
+
+.qr-card h2{
+
+    color:#2e7d32;
+
+    margin-bottom:20px;
+
+}
+
+.qr-card img{
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:12px;
+
+    transition:.4s;
+
+}
+
+.qr-card img:hover{
+
+    transform:scale(1.08);
+
+}
+
+.qr-card p{
+
+    margin-top:20px;
+
+    color:#666;
+
+    line-height:1.6;
+
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer{
+
+    background:rgba(0,0,0,.15);
+
+    backdrop-filter:blur(8px);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 60px;
+
+    border-top:1px solid rgba(255,255,255,.2);
+
+}
+
+footer h3{
+
+    margin-bottom:5px;
+
+}
+
+footer p{
+
+    color:#eef7ee;
+
+    line-height:1.5;
+
+}
+
+/* ==========================================
+   FLOATING ICONS
+========================================== */
+
+.floating{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:-1;
+
+}
+
+.floating i{
+
+    position:absolute;
+
+    color:rgba(255,255,255,.15);
+
+    animation:floatIcon 12s linear infinite;
+
+}
+
+.qr1{
+
+    font-size:70px;
+
+    top:15%;
+
+    left:8%;
+
+}
+
+.qr2{
+
+    font-size:55px;
+
+    right:10%;
+
+    top:22%;
+
+    animation-delay:2s;
+
+}
+
+.qr3{
+
+    font-size:60px;
+
+    left:15%;
+
+    bottom:12%;
+
+    animation-delay:5s;
+
+}
+
+.qr4{
+
+    font-size:75px;
+
+    right:15%;
+
+    bottom:18%;
+
+    animation-delay:8s;
+
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0px) rotate(0deg);
+
+    }
+
+    50%{
+
+        transform:translateY(-35px) rotate(180deg);
+
+    }
+
+    100%{
+
+        transform:translateY(0px) rotate(360deg);
+
+    }
+
+}
+
+@keyframes floatIcon{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-25px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+
+        box-shadow:0 0 0 rgba(255,255,255,0);
+
+    }
+
+    50%{
+
+        transform:scale(1.05);
+
+        box-shadow:0 0 25px rgba(255,255,255,.35);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        box-shadow:0 0 0 rgba(255,255,255,0);
+
+    }
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+    .glass{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+    .features{
+
+        flex-direction:column;
+
+    }
+
+    .scan-message{
+
+        margin-left:auto;
+
+        margin-right:auto;
+
+    }
+
+    .right{
+
+        margin-top:20px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    header{
+
+        padding:20px;
+
+        justify-content:center;
+
+    }
+
+    .logo{
+
+        font-size:22px;
+
+    }
+
+    .logo i{
+
+        font-size:28px;
+
+    }
+
+    .hero{
+
+        padding:20px;
+
+    }
+
+    .glass{
+
+        padding:30px 20px;
+
+        border-radius:20px;
+
+    }
+
+    .left h1{
+
+        font-size:36px;
+
+    }
+
+    .left p{
+
+        font-size:17px;
+
+    }
+
+    .features{
+
+        gap:15px;
+
+    }
+
+    .features div{
+
+        padding:18px;
+
+    }
+
+    .features i{
+
+        font-size:32px;
+
+    }
+
+    .qr-card{
+
+        width:100%;
+
+        max-width:320px;
+
+    }
+
+    .qr-card img{
+
+        width:180px;
+
+        height:180px;
+
+    }
+
+    footer{
+
+        flex-direction:column;
+
+        gap:12px;
+
+        text-align:center;
+
+        padding:20px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .left h1{
+
+        font-size:28px;
+
+    }
+
+    .left p{
+
+        font-size:15px;
+
+    }
+
+    .scan-message{
+
+        font-size:15px;
+
+        padding:15px 20px;
+
+    }
+
+    .scan-message i{
+
+        font-size:20px;
+
+    }
+
+    .qr-card{
+
+        padding:20px;
+
+    }
+
+    .qr-card img{
+
+        width:150px;
+
+        height:150px;
+
+    }
+
+    .floating{
+
+        display:none;
+
+    }
+
+}

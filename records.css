@@ -1,0 +1,312 @@
+/* =====================================
+   DAPO QR Generator System
+   records.css
+===================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f7f8;
+    color:#333;
+}
+
+.main{
+    max-width:1400px;
+    margin:auto;
+    padding:30px;
+}
+
+h1{
+    text-align:center;
+    color:#2e7d32;
+    margin-bottom:25px;
+}
+
+/* =====================================
+   ACTION BUTTONS
+===================================== */
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.actions button,
+.actions a{
+
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    background:#2e7d32;
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
+
+}
+
+.actions button:hover,
+.actions a:hover{
+
+    background:#1b5e20;
+
+}
+
+.back-btn{
+    background:#1565c0 !important;
+}
+
+.back-btn:hover{
+    background:#0d47a1 !important;
+}
+
+.clear-btn{
+    background:#d32f2f !important;
+}
+
+.clear-btn:hover{
+    background:#b71c1c !important;
+}
+
+/* =====================================
+   SEARCH BOX
+===================================== */
+
+.search-box{
+
+    width:100%;
+    max-width:450px;
+    display:block;
+    margin:0 auto 25px auto;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+
+}
+
+.search-box:focus{
+
+    outline:none;
+    border-color:#2e7d32;
+
+}
+
+/* =====================================
+   TABLE
+===================================== */
+
+.table-container{
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+
+}
+
+th{
+
+    background:#2e7d32;
+    color:white;
+    padding:14px;
+
+}
+
+td{
+
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+
+}
+
+tr:nth-child(even){
+
+    background:#f8f8f8;
+
+}
+
+tr:hover{
+
+    background:#e8f5e9;
+
+}
+
+/* =====================================
+   DELETE BUTTON
+===================================== */
+
+.delete-btn{
+
+    background:#d32f2f;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:5px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+.delete-btn:hover{
+
+    background:#b71c1c;
+
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+footer{
+
+    text-align:center;
+    padding:25px;
+    margin-top:40px;
+    color:#666;
+    font-size:14px;
+
+}
+
+/* =====================================
+   PRINT
+===================================== */
+
+@media print{
+
+.actions,
+.search-box,
+.delete-btn,
+.back-btn{
+
+    display:none;
+
+}
+
+body{
+
+    background:white;
+
+}
+
+table{
+
+    box-shadow:none;
+
+}
+
+}
+
+/* =====================================
+   RESPONSIVE TABLET
+===================================== */
+
+@media(max-width:992px){
+
+.main{
+
+    padding:20px;
+
+}
+
+th,
+td{
+
+    font-size:14px;
+
+}
+
+}
+
+/* =====================================
+   RESPONSIVE MOBILE
+===================================== */
+
+@media(max-width:768px){
+
+.main{
+
+    padding:15px;
+
+}
+
+.actions{
+
+    flex-direction:column;
+
+}
+
+.actions button,
+.actions a{
+
+    width:100%;
+
+}
+
+.search-box{
+
+    width:100%;
+
+}
+
+table{
+
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+
+}
+
+th,
+td{
+
+    font-size:13px;
+
+}
+
+}
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media(max-width:480px){
+
+h1{
+
+    font-size:24px;
+
+}
+
+.actions button,
+.actions a{
+
+    font-size:14px;
+    padding:10px;
+
+}
+
+th,
+td{
+
+    padding:10px;
+
+}
+
+}

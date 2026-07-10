@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+DAPO QR Generator | Administrator Panel 
+</title>
+
+<link rel="stylesheet" href="global.css">
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<script>
+
+if(sessionStorage.getItem("loggedIn") !== "true"){
+        
+    window.location.href="login.html";
+        
+        }
+        
+</script>
+
+<div class="mobile-header">
+
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <h2>DAPO QR Generator</h2>
+
+</div>
+
+
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+
+    <div class="logo">
+        <h2>DAPO</h2>
+        <p>QR Generator</p>
+    </div>
+    <ul>
+
+    <li>
+        <a href="admin.html" class="active">
+        <i class="fa fa-house"></i>
+        Admin Home
+        </a>
+    </li>
+
+    <li>
+        <a href="statistics.html">
+        <i class="fa fa-chart-line"></i>
+        Dashboard
+        </a>
+    </li>
+        
+    <li>
+        <a href="create-admin.html">
+        <i class="fa fa-user-plus"></i>
+        Create Admin
+        </a>
+    </li>
+
+    <li>
+        <a href="manage-admin.html">
+        <i class="fa fa-users"></i>
+        Manage Admins
+        </a>
+        </li>
+        
+    <li>
+        <a href="change-password.html">
+        <i class="fa fa-key"></i>
+        Change Password
+        </a>
+    </li>
+        
+    <li>
+        <a href="forgot-password.html">
+        <i class="fa fa-lock"></i>
+        Forgot Password
+        </a>
+    </li>
+        
+        <li>
+        <a href="login-history.html">
+        <i class="fa fa-clock"></i>
+        Login History
+        </a>
+        </li>
+        
+        <li>
+        <a href="system-settings.html">
+        <i class="fa fa-gear"></i>
+        System Settings
+        </a>
+        </li>
+        
+        <li>
+        <a href="chatbot.html">
+        <i class="fa fa-robot"></i>
+        AI Chatbot
+        </a>
+        </li>
+        
+        <li>
+        <a href="records.html">
+        <i class="fa fa-table"></i>
+        QR Records
+        </a>
+        </li>
+        
+        <li>
+        <a href="index.html">
+        <i class="fa fa-qrcode"></i>
+        QR Generator
+        </a>
+        </li>
+        
+        <li>
+
+        <a href="#" onclick="logout()">
+        <i class="fa fa-right-from-bracket"></i>
+        Logout
+            
+        </a>
+            
+        </li>
+
+        </ul>
+
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+
+<div class="topbar">
+
+    <h3>Administrator Dashboard</h3>
+    <p>Logged in as <strong>Administrator</strong></p>
+        
+</div>
+<h1>⚙ Administrator Settings</h1>
+<div class="welcome-card">
+
+    <h2>Welcome Administrator 👋</h2>
+    
+    <p>
+    Manage QR records, administrator accounts,
+    system settings, login history,
+    and monitor statistics from one place.
+    </p>
+    
+    </div>
+<p class="subtitle">
+    Welcome to the DAPO Administration Panel. 
+    Use the shortcuts below to manage administrator accounts, 
+    view statistics, monitor login history, configure system settings, 
+    and access the AI Assistant.
+</p>
+
+<!-- Dashboard -->
+<h2 style="text-align:center; margin-bottom:20px;">
+    Quick Access
+</h2>
+<div class="dashboard">
+
+    <a href="statistics.html" class="card">
+    <i class="fa-solid fa-chart-line"></i>
+    <h2>Dashboard</h2>
+    <p>View system statistics and reports.</p>
+    </a>
+    
+    <a href="scan-records.html" class="card">
+    <i class="fa-solid fa-camera"></i>
+    <h2>Scanned QR Records</h2>
+    <p>View all scanned QR codes.</p>
+    </a>
+    
+    <a href="create-admin.html" class="card">
+    <i class="fa-solid fa-user-plus"></i>
+    <h2>Create Admin</h2>
+    <p>Add new administrator accounts.</p>
+    </a>
+    
+    <a href="manage-admin.html" class="card">
+    <i class="fa-solid fa-users"></i>
+    <h2>Manage Admins</h2>
+    <p>Edit or remove administrator accounts.</p>
+    </a>
+    
+    <a href="change-password.html" class="card">
+    <i class="fa-solid fa-key"></i>
+    <h2>Change Password</h2>
+    <p>Update your administrator password.</p>
+    </a>
+    
+    <a href="forgot-password.html" class="card">
+    <i class="fa-solid fa-lock"></i>
+    <h2>Forgot Password</h2>
+    <p>Recover your administrator account.</p>
+    </a>
+    
+    <a href="login-history.html" class="card">
+    <i class="fa-solid fa-clock"></i>
+    <h2>Login History</h2>
+    <p>View login records.</p>
+    </a>
+    
+    <a href="system-settings.html" class="card">
+
+        <i class="fa-solid fa-gear"></i>
+        <h2>System Settings</h2>
+        <p>View system details.</p>
+        
+    </a>
+        
+    <a href="chatbot.html" class="card">
+        
+        <i class="fa-solid fa-robot"></i>
+        <h2>AI Chatbot</h2>
+        <p>Ask questions and get assistance.</p>
+        
+    </a>
+    
+    </div>
+
+</div>
+
+
+<!-- Profile -->
+
+
+
+
+<!-- Floating AI Chat -->
+
+<a href="chatbot.html" class="chat-button">
+    <i class="fa-solid fa-robot"></i>
+</a>
+
+ <!-- end of .main -->
+<footer class="footer">
+    © 2026 DAPO QR Generator System | Administrator Panel
+</footer>
+
+
+<script>
+    function logout(){
+    
+        if(confirm("Are you sure you want to logout?")){
+    
+            sessionStorage.removeItem("loggedIn");
+            window.location.href="login.html";
+    
+        }
+    
+    }
+    </script>
+
+<script>
+
+function toggleSidebar(){
+
+const sidebar = document.getElementById("sidebar");
+
+sidebar.classList.toggle("show");
+
+if(sidebar.classList.contains("show")){
+    document.body.style.overflow = "hidden";
+}else{
+    document.body.style.overflow = "";
+}
+
+}
+</script>
+<script>
+
+document.querySelectorAll(".sidebar a").forEach(link=>{
+
+link.addEventListener("click",()=>{
+
+    if(window.innerWidth <= 768){
+
+        document.getElementById("sidebar").classList.remove("show");
+        document.body.style.overflow = "";
+
+    }
+
+});
+
+});
+    
+    </script>
+
+<script>
+    document.addEventListener("click", function(e){
+    
+        const sidebar = document.getElementById("sidebar");
+        const button = document.querySelector(".menu-toggle");
+    
+        if(
+            window.innerWidth <= 768 &&
+            sidebar.classList.contains("show") &&
+            !sidebar.contains(e.target) &&
+            !button.contains(e.target)
+        ){
+            sidebar.classList.remove("show");
+            document.body.style.overflow = "";
+        }
+    
+    });
+    </script>
+</body>
+</html>

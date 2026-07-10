@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<meta charset="UTF-8">
+
+<title> DAPO QR Code Records </title>
+
+<link rel="stylesheet" href="global.css">
+<link rel="stylesheet" href="records.css">
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>ADMIN PAGE</h2>
+
+    <p id="totalRecords" style="font-weight:bold;text-align:center;color:#007bff;">
+    Total Records: 0
+    </p>
+    
+    <input
+    type="text"
+    id="searchBox"
+    placeholder="🔍 Search by name..."
+    onkeyup="loadTable()"
+    style="
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:5px;
+    border:1px solid #ccc;
+    box-sizing:border-box;">
+    
+    <select
+    id="monthFilter"
+    onchange="loadTable()"
+    style="
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border-radius:5px;
+    border:1px solid #ccc;">
+    
+    <option value="">📅 All Months</option>
+    
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+    <option value="October">October</option>
+    <option value="November">November</option>
+    <option value="December">December</option>
+    
+    </select>
+    
+    <table>
+
+<thead>
+
+<tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Cell Number</th>
+    <th>Email</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+<div class="actions">
+
+<button class="clear-btn" onclick="clearRecords()">
+🗑 Clear All Records
+</button>
+
+<button class="back-btn" onclick="window.location.href='index.html'">
+⬅ Back
+</button>
+
+<button onclick="window.print()">
+    🖨 Print
+    </button>
+
+<button onclick="exportExcel()">
+        📊 Export Excel
+    </button>
+
+<button onclick="exportPDF()">
+        📄 Export PDF
+    </button>
+
+</div>
+
+</div>
+
+<script>
+
+function loadTable(){
+
+    let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
+    document.getElementById("totalRecords").innerHTML =
+    "Total Records: " + records.length;
+    let keyword = document.getElementById("searchBox").value.toLowerCase();
+    let selectedMonth = document.getElementById("monthFilter").value;
+    
+    let tbody = document.getElementById("tableBody");
+
+    tbody.innerHTML = "";
+
+
+    if(records.length===0){
+
+        tbody.innerHTML=`
+        <tr>
+            <td colspan="8">
+                No records found.
+            </td>
+        </tr>
+        `;
+
+        return;
+
+    }
+
+    records.forEach((person,index)=>{
+
+         // Search by name
+    if(!person.name.toLowerCase().includes(keyword)){
+        return;
+    }
+
+    // Filter by month
+    if(selectedMonth !== ""){
+
+const monthName = new Date(person.date).toLocaleString("en-US",{
+    month:"long"
+});
+
+if(monthName !== selectedMonth){
+    return;
+}
+    }
+
+        tbody.innerHTML += `
+        <tr>
+
+            <td>${index+1}</td>
+
+            <td>${person.name}</td>
+
+            <td>${person.address}</td>
+
+            <td>${person.cell}</td>
+
+            <td>${person.email}</td>
+
+            <td>${person.date}</td>
+
+            <td>${person.time}</td>
+
+            <td>
+
+                <button class="delete-btn"
+                onclick="deleteRecord(${index})">
+
+                🗑 Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+        `;
+
+    });
+
+}
+
+function deleteRecord(index){
+
+    let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
+    console.log(records);
+    if(confirm("Delete this record?")){
+
+        records.splice(index,1);
+
+        localStorage.setItem("qrRecords",JSON.stringify(records));
+
+        loadTable();
+
+    }
+
+}
+
+function clearRecords(){
+
+    if(confirm("Delete ALL records?")){
+
+        localStorage.removeItem("qrRecords");
+
+        loadTable();
+
+    }
+
+}
+
+function exportExcel(){
+
+let table =
+document.querySelector("table");
+
+let workbook =
+XLSX.utils.table_to_book(table);
+
+XLSX.writeFile(workbook,"QR_Records.xlsx");
+
+}
+
+async function exportPDF(){
+
+const {jsPDF}=window.jspdf;
+
+let pdf=new jsPDF();
+
+pdf.autoTable({
+html:"table"
+});
+
+pdf.save("QR_Records.pdf");
+
+}
+
+loadTable();
+
+</script>
+
+</body>
+</html>

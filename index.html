@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DAPO QR Code Generator</title>
+
+<link rel="stylesheet" href="global.css">
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+</head>
+
+<body>
+
+<script>
+if(sessionStorage.getItem("loggedIn") !== "true"){
+    window.location.href="login.html";
+}
+</script>
+
+<div class="container">
+
+<h2>QR Code Generator</h2>
+
+<label>Name</label>
+<input type="text" id="name">
+
+<label>Address</label>
+<textarea id="address" rows="3"></textarea>
+
+<label>Cell Number</label>
+<input
+type="text"
+id="cell"
+maxlength="11"
+inputmode="numeric"
+placeholder="09XXXXXXXXX"
+oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+
+<label>Email</label>
+<input type="email" id="email">
+
+<button onclick="generateQR()">
+Generate QR Code
+</button>
+
+<a href="scanner.html" class="scan-btn">
+<i class="fa-solid fa-camera"></i>
+Scan QR Code
+</a>
+
+<button onclick="printQR()">
+🖨 Print QR Code
+</button>
+
+<button onclick="window.location.href='records.html'">
+View Records
+</button>
+
+<button onclick="window.location.href='admin.html'">
+⚙ Admin Settings
+</button>
+
+<button class="logout-btn" onclick="logout()">
+Logout
+</button>
+
+<div class="output" id="output"></div>
+
+<div id="qrcode"></div>
+
+</div>
+
+<script>
+
+function generateQR(){
+
+const name=document.getElementById("name").value.trim();
+const address=document.getElementById("address").value.trim();
+const cell=document.getElementById("cell").value.trim();
+const email=document.getElementById("email").value.trim();
+
+if(!name || !address || !cell || !email){
+    alert("Please complete all fields.");
+    return;
+}
+
+const phonePattern=/^09\d{9}$/;
+
+if(!phonePattern.test(cell)){
+    alert("Cell Number must be a valid Philippine mobile number.");
+    document.getElementById("cell").focus();
+    return;
+}
+
+const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!emailPattern.test(email)){
+    alert("Please enter a valid email address.");
+    document.getElementById("email").focus();
+    return;
+}
+
+const qrData=
+`Name: ${name}
+Address: ${address}
+Cell: ${cell}
+Email: ${email}`;
+
+document.getElementById("output").textContent=qrData;
+
+document.getElementById("qrcode").innerHTML="";
+
+new QRCode(document.getElementById("qrcode"),{
+    text:qrData,
+    width:250,
+    height:250
+});
+
+let records=JSON.parse(localStorage.getItem("qrRecords")) || [];
+
+const now=new Date();
+
+const exists = records.some(record =>
+    record.name === name &&
+    record.address === address &&
+    record.cell === cell &&
+    record.email === email
+);
+
+if(!exists){
+
+    records.push({
+
+        name,
+        address,
+        cell,
+        email,
+
+        date:now.toLocaleDateString(),
+
+        time:now.toLocaleTimeString()
+
+    });
+
+}
+
+localStorage.setItem("qrRecords",JSON.stringify(records));
+
+alert("QR Code generated successfully!");
+
+document.getElementById("name").value="";
+document.getElementById("address").value="";
+document.getElementById("cell").value="";
+document.getElementById("email").value="";
+
+document.getElementById("name").focus();
+
+}
+
+function printQR(){
+
+const qr=document.getElementById("qrcode");
+
+if(qr.innerHTML===""){
+    alert("Please generate a QR Code first.");
+    return;
+}
+
+let printWindow=window.open("","","width=600,height=700");
+
+printWindow.document.write(`
+<html>
+
+<head>
+
+<title>Print QR Code</title>
+
+<style>
+
+body{
+
+font-family:Arial;
+
+text-align:center;
+
+margin-top:40px;
+
+}
+
+img,canvas{
+
+width:250px;
+
+height:250px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>DAPO QR Code</h2>
+
+<p><strong>Name:</strong> ${name}</p>
+<p><strong>Address:</strong> ${address}</p>
+<p><strong>Cell:</strong> ${cell}</p>
+<p><strong>Email:</strong> ${email}</p>
+
+${qr.innerHTML}
+
+</body>
+
+</html>
+`);
+
+printWindow.document.close();
+
+printWindow.focus();
+
+printWindow.print();
+
+printWindow.close();
+
+}
+
+function logout(){
+
+if(confirm("Are you sure you want to logout?")){
+
+sessionStorage.removeItem("loggedIn");
+
+window.location.href="login.html";
+
+}
+
+}
+
+</script>
+<footer>
+
+    © 2026 DAPO QR Generator System
+    
+</footer>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login History | DAPO QR Generator</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#dff8d8;
+}
+
+.container{
+    width:1000px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h1{
+    text-align:center;
+    color:#2e7d32;
+    margin-bottom:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#4CAF50;
+    color:white;
+}
+
+tr:nth-child(even){
+    background:#f7fff5;
+}
+
+button{
+    padding:12px 18px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin-top:20px;
+    margin-right:10px;
+}
+
+.back{
+    background:#2196F3;
+    color:white;
+}
+
+.clear{
+    background:#f44336;
+    color:white;
+}
+
+.print{
+    background:#4CAF50;
+    color:white;
+}
+
+.export{
+    background:#ff9800;
+    color:white;
+}
+
+.actions{
+    text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📜 Login History</h1>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>Username</th>
+<th>Date</th>
+<th>Time</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historyTable">
+
+</tbody>
+
+</table>
+
+<div class="actions">
+
+<button class="print"
+onclick="window.print()">
+
+🖨 Print
+
+</button>
+
+<button class="export"
+onclick="exportCSV()">
+
+📊 Export CSV
+
+</button>
+
+<button class="clear"
+onclick="clearHistory()">
+
+🗑 Clear History
+
+</button>
+
+<button class="back"
+onclick="window.location.href='admin.html'">
+
+⬅ Back
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function loadHistory(){
+
+let history=JSON.parse(localStorage.getItem("loginHistory"))||[];
+
+let table=document.getElementById("historyTable");
+
+table.innerHTML="";
+
+if(history.length===0){
+
+table.innerHTML=`
+<tr>
+<td colspan="5">
+No login history found.
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+history.forEach((item,index)=>{
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>${item.username}</td>
+
+<td>${item.date}</td>
+
+<td>${item.time}</td>
+
+<td>${item.status}</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+function clearHistory(){
+
+if(confirm("Delete all login history?")){
+
+localStorage.removeItem("loginHistory");
+
+loadHistory();
+
+}
+
+}
+
+function exportCSV(){
+
+let history=JSON.parse(localStorage.getItem("loginHistory"))||[];
+
+let csv="No,Username,Date,Time,Status\n";
+
+history.forEach((item,index)=>{
+
+csv+=`${index+1},${item.username},${item.date},${item.time},${item.status}\n`;
+
+});
+
+let blob=new Blob([csv],{type:"text/csv"});
+
+let url=URL.createObjectURL(blob);
+
+let a=document.createElement("a");
+
+a.href=url;
+
+a.download="Login_History.csv";
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+<center>
+
+<button onclick="window.location.href='admin.html'">
+⬅ Back to Admin Dashboard
+</button>
+
+</center>
+}
+
+loadHistory();
+
+</script>
+
+</body>
+</html>
